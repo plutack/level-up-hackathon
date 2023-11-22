@@ -179,8 +179,19 @@ main header {
 
 .task {
   display: flex;
+  opacity: 0;
   flex-direction: column;
   gap: 2px;
+  max-height: 0;
+  transition: opacity 1s ease;
+  transform-origin: top;
+  transform: scaleY(0);
+}
+.task.open {
+  opacity: 1;
+  transform: scaleY(1);
+  transform-origin: bottom;
+  max-height: fit-content;
 }
 
 .task > * {
@@ -195,15 +206,15 @@ main header {
   gap: 8px;
 }
 
-.task button{
-    border-radius: 6px;
-    border: 1.5x 15px 0 1.5px;
-    border-block-start: 1.5x;
-    border-block-end: 0;
-    border-inline: 1.5px;
-    padding: 6px 12px;
-    color: #ffffff;
-    background-color: #404040;
+.task button {
+  border-radius: 6px;
+  border: 1.5x 15px 0 1.5px;
+  border-block-start: 1.5x;
+  border-block-end: 0;
+  border-inline: 1.5px;
+  padding: 6px 12px;
+  color: #ffffff;
+  background-color: #404040;
 }
 .content-detail {
   display: flex;
