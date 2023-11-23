@@ -82,7 +82,8 @@ nav li:nth-child(3) li:nth-child(1) {
     border-color: #e1e1e1;
 }
 #search:active, #search:focus{
-    border-color: #e1e1e1;
+    outline: 0;
+    border-color: #ffffff;
 }
 
 p,
