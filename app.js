@@ -1,5 +1,5 @@
 let dropDown = document.getElementById('dropDown');
-let taskList = document.querySelector('.task');
+let taskList = document.querySelector('.task-list');
 let setupSection = document.querySelector('.setup');
 let userNameContainer = document.getElementById('userName');
 let userName = userNameContainer.querySelector('span');

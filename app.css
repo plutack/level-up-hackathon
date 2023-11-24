@@ -20,6 +20,10 @@ button {
   outline: inherit;
 }
 
+body {
+  background-color: #f1f1f1;
+}
+
 body > header {
   background-color: #1a1a1a;
 }
@@ -165,6 +169,7 @@ main header {
   flex-direction: column;
   justify-content: space-evenly;
   width: 100%;
+  background-color: #ffffff;
   border: 1px solid #dbdbdb;
   padding: 8px;
   border-radius: 18px;
@@ -201,7 +206,7 @@ main header {
   gap: 4px;
 }
 
-.task {
+.task-list {
   display: flex;
   opacity: 0;
   flex-direction: column;
@@ -211,20 +216,21 @@ main header {
   transform-origin: top;
   transform: scaleY(0);
 }
-.task.open {
+.task-list.open {
   opacity: 1;
   transform: scaleY(1);
   transform-origin: bottom;
   height: auto;
 }
 
-.task > * {
+.task {
   display: flex;
   border-radius: 10px;
   padding: 8px 8px 12px 8px;
   gap: 96px;
+  
 }
-.task > * > * {
+.task > * {
   display: flex;
   align-items: flex-start;
   gap: 8px;
@@ -267,10 +273,27 @@ main header {
   width: 24px;
 }
 
-
 .more-content.hidden {
   display: none;
 }
 /* .task>*:focus+.more-content{
   display: unset;
 } */
+
+/* .task:hover {
+  background-color: #f1f1f1;
+}
+.task:hover:active {
+  background-color: #f0f0f0;
+  outline: none;
+} */
+
+/* .task:active {
+  background-color: #f3f3f3;;
+  border: none;
+} */
+
+.task:focus {
+  background-color: #f3f3f3;
+  outline: none;
+}
