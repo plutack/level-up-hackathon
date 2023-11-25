@@ -237,14 +237,26 @@ main header {
 
 .pry-button {
   border-radius: 6px;
-  border: 1.5x 15px 0 1.5px;
   border-block-start: 1.5x;
   border-block-end: 0;
   border-inline: 1.5px;
   padding: 6px 12px;
   color: #ffffff;
   background-color: #404040;
-  box-shadow: 0 0 0 1.5 #333333, 0 1 0 1.5 #333333;
+  box-shadow: 0px 0px 0px 1.5px #333333, 0px 1px 0px 1.5px #333333;
+}
+.pry-button:hover {
+  background-color: #2a2a2a;
+}
+.pry-button:hover:active {
+  background-color: #2b2b2b;
+  box-shadow: 0px 3px 0px 0px #000000;
+}
+.pry-button:focus {
+  box-shadow: 0px 0px 0px 5px #005bd3, 0px 0px 0px 3px #ffffff;
+}
+.pry-button:not(:focus-visible) {
+  box-shadow: none;
 }
 
 .sec-button {
@@ -256,6 +268,19 @@ main header {
   color: #323232;
 }
 
+.sec-button:hover {
+  background-color: #e7e7e7;
+}
+.sec-button:hover:active {
+  background-color: #e0e0e0;
+}
+.sec-button:focus {
+  outline: 2px solid #005bd3;
+}
+.sec-button:not(:focus-visible) {
+  outline: 0;
+}
+
 .content-detail {
   display: flex;
   flex-direction: column;
@@ -263,13 +288,34 @@ main header {
   gap: 16px;
 }
 
-#incomplete circle {
+.incomplete circle {
   stroke: #8a8a8a;
 }
 
-#incomplete {
+.incomplete {
   height: 24px;
   width: 24px;
+  transition: 0.25s ease-in;
+}
+.loading,
+.complete {
+  display: none;
+  height: 24px;
+  width: 24px;
+  transition: all 0.5s ease;
+}
+
+.loading.rotate {
+  transform: rotate(-90deg);
+}
+
+.incomplete.hidden {
+  display: none;
+}
+
+.loading.hidden,
+.complete.hidden {
+  display: flex;
 }
 
 .more-content.hidden {

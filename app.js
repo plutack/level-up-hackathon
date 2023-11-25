@@ -1,14 +1,38 @@
 let dropDown = document.getElementById('dropDown');
-let taskList = document.querySelector('.task-list
-');
+let taskList = document.querySelector('.task-list');
 let setupSection = document.querySelector('.setup');
 let userNameContainer = document.getElementById('userName');
 let userName = userNameContainer.querySelector('span');
 let userNameAbbr = document.getElementById('userNameAbbr');
 let close = document.querySelector('#close');
 let planNotice = document.querySelector('#planNotice');
-
+let buttons = document.querySelectorAll('button');
+let incompleteButtons = document.querySelectorAll('.incomplete');
+let completeButtons = document.querySelectorAll('.complete');
 document.addEventListener('DOMContentLoaded', function () {
+  incompleteButtons.forEach((incompleteButton) => {
+    incompleteButton.addEventListener('click', () => {
+      let loadingButton = incompleteButton.nextElementSibling;
+      let completeButton = loadingButton.nextElementSibling;
+      loadingButton.addEventListener('transitionend', () => {
+        loadingButton.classList.toggle('hidden');
+      });
+      loadingButton.classList.toggle('hidden');
+      incompleteButton.classList.toggle('hidden');
+      loadingButton.style.transform = 'rotate(-90deg)'
+      completeButton.classList.toggle('hidden');
+    });
+  });
+  completeButtons.forEach((completeButton) => {
+    completeButton.addEventListener('click', () => {
+      completeButton.classList.toggle('hidden');
+      setTimeout(() => {
+        completeButton.previousElementSibling.previousElementSibling.classList.toggle(
+          'hidden'
+        );
+      }, 500);
+    });
+  });
   dropDown.addEventListener('click', () => {
     taskList.classList.toggle('open');
   });
