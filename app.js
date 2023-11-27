@@ -2,8 +2,10 @@ let dropDown = document.getElementById('dropDown');
 let taskList = document.querySelector('.task-list');
 let setupSection = document.querySelector('.setup');
 let userNameContainer = document.getElementById('userName');
+console.log(userNameContainer)
 let userName = userNameContainer.querySelector('span');
-let userNameAbbr = document.getElementById('userNameAbbr');
+let userNameAbbr = document.querySelector('#userNameAbbr');
+let userNameButton = userNameContainer.children[0];
 let close = document.querySelector('#close');
 let planNotice = document.querySelector('#planNotice');
 let buttons = document.querySelectorAll('button');
@@ -123,7 +125,10 @@ document.addEventListener('DOMContentLoaded', function () {
   close.addEventListener('click', () => {
     planNotice.remove();
   });
-
+  userNameButton.addEventListener('click', () => {
+    let dropdownContainer = userNameButton.nextElementSibling.nextElementSibling
+    dropdownContainer.classList.toggle('hidden');
+  });
   let tasks = document.querySelectorAll('.expandable');
   let focusedTask = null;
 
@@ -156,32 +161,29 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-function handleTaskFocus(event) {
-  var target = event.target;
-  var task = target.closest('.expandable');
-  console.log(task);
+// function handleTaskFocus(event) {
+//   var target = event.target;
+//   var task = target.closest('.expandable');
+//   console.log(task);
 
-  if (task) {
-    // Toggle the 'more content' based on the focus state
-    toggleContent(task.querySelectorAll('.more-content'), true);
-  }
-}
+//   if (task) {
+//     // Toggle the 'more content' based on the focus state
+//     toggleContent(task.querySelectorAll('.more-content'), true);
+//   }
+// }
 
-function handleTaskBlur(event) {
-  var target = event.target;
-  var task = target.closest('.expandable');
+// function handleTaskBlur(event) {
+//   var target = event.target;
+//   var task = target.closest('.expandable');
 
-  if (task) {
-    // Toggle the 'more content' based on the blur state
-    toggleContent(task.querySelectorall('.more-content'), false);
-  }
-}
+//   if (task) {
+//     // Toggle the 'more content' based on the blur state
+//     toggleContent(task.querySelectorall('.more-content'), false);
+//   }
+// }
 
 // Add focus and blur event listeners to each task
-tasks.forEach(function (task) {
-  task.addEventListener('focusin', handleTaskFocus);
-  task.addEventListener('focusout', handleTaskBlur);
-});
+
 function getFirstLetters(inputString) {
   // Split the string into an array of words
   let words = inputString.split(/\s+/);
