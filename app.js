@@ -1,11 +1,13 @@
 let dropDown = document.getElementById('dropDown');
+let dropdownOpen = dropDown.querySelector('#dropdownOpen');
+let dropdownClose = dropDown.querySelector('#dropdownClose');
 let taskList = document.querySelector('.task-list');
 let setupSection = document.querySelector('.setup');
 let userNameContainer = document.getElementById('userName');
-console.log(userNameContainer)
 let userName = userNameContainer.querySelector('span');
 let userNameAbbr = document.querySelector('#userNameAbbr');
 let userNameButton = userNameContainer.children[0];
+let notificationButton = document.querySelector('#notibell');
 let close = document.querySelector('#close');
 let planNotice = document.querySelector('#planNotice');
 let buttons = document.querySelectorAll('button');
@@ -43,11 +45,16 @@ function checkCountAndUpdate(index) {
   let widthValue = `${(100 * count) / taskNumber}%`;
   progressbarContainer.style.setProperty('--after-width', widthValue);
   if (index < taskNumber - 1) {
-    taskList.children[index].classList.toggle('active');
-    toggleContent(
-      taskList.children[index].querySelectorAll('.more-content'),
-      false
-    );
+    for (let i = 0; i < taskNumber; i++) {
+      if (taskList.children[i].classList.contains('active')) {
+        taskList.children[i].classList.remove('active');
+      }
+      toggleContent(
+        taskList.children[i].querySelectorAll('.more-content'),
+        false
+      );
+    }
+
     taskList.children[index + 1].classList.toggle('active');
     toggleContent(
       taskList.children[index + 1].querySelectorAll('.more-content'),
@@ -101,14 +108,11 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   });
-  // iconContainer.forEach((container, index) => {
-  //   let completeButton = container.children[4];
-  //   container.addEventListener('click', async () => {
 
-  //   });
-  // });
   dropDown.addEventListener('click', () => {
     taskList.classList.toggle('open');
+    dropdownOpen.classList.toggle('hidden');
+    dropdownClose.classList.toggle('hidden');
     if (taskList.classList.contains('open')) {
       toggleContent(
         taskList.children[0].querySelectorAll('.more-content'),
@@ -126,8 +130,13 @@ document.addEventListener('DOMContentLoaded', function () {
     planNotice.remove();
   });
   userNameButton.addEventListener('click', () => {
-    let dropdownContainer = userNameButton.nextElementSibling.nextElementSibling
+    let dropdownContainer =
+      userNameButton.nextElementSibling.nextElementSibling;
     dropdownContainer.classList.toggle('hidden');
+  });
+  notificationButton.addEventListener('click', () => {
+    let alertContainer = userNameButton.nextElementSibling;
+    alertContainer.classList.toggle('hidden');
   });
   let tasks = document.querySelectorAll('.expandable');
   let focusedTask = null;

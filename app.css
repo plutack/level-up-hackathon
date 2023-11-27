@@ -377,7 +377,10 @@ h1 {
 }
 
 .more-content.hidden,
-.dropdown-container.hidden {
+.dropdown-container.hidden,
+.alert-container.hidden,
+#dropdownOpen.hidden,
+#dropdownClose.hidden {
   display: none;
 }
 
