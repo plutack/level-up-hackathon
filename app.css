@@ -7,9 +7,9 @@
 }
 
 button {
-  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
   border: none;
   margin: 0;
   padding: 0;
@@ -256,6 +256,13 @@ h1 {
   transform-origin: bottom;
   height: auto;
 }
+.task:hover .more-content {
+  display: unset;
+}
+
+.task:hover {
+  background-color: #f3f3f3;
+}
 
 .task {
   display: flex;
@@ -263,6 +270,7 @@ h1 {
   padding: 8px 8px 12px 8px;
   gap: 96px;
 }
+
 .task > * {
   display: flex;
   align-items: flex-start;
@@ -554,10 +562,13 @@ input[type='radio'] {
 }
 
 .accessibility {
-  display: none;
+  position: absolute;
+  left: -999px;
+  overflow: hidden;
 }
 .accessibility:focus {
-  display: block;
+  position: initial;
+  overflow: initial;
 }
 
 @media (max-width: 599px) {

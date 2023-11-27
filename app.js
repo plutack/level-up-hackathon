@@ -1,3 +1,4 @@
+// Get references to DOM elements
 let dropDown = document.getElementById('dropDown');
 let dropdownOpen = dropDown.querySelector('#dropdownOpen');
 let dropdownClose = dropDown.querySelector('#dropdownClose');
@@ -17,6 +18,8 @@ let iconContainer = document.querySelectorAll('.icon-container');
 let completeButtons = document.querySelectorAll('.complete');
 let progress = document.querySelector('#progress');
 let progressbarContainer = document.querySelector('#progressbarContainer');
+
+// Function to toggle the visibility of elements
 function toggleContent(contents, shouldShow) {
   if (shouldShow) {
     contents.forEach((content) => {
@@ -28,9 +31,13 @@ function toggleContent(contents, shouldShow) {
     });
   }
 }
+
+// Function to introduce a delay using a Promise
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+// Function to check the count of completed tasks and update the progress bar
 function checkCountAndUpdate(index) {
   let completeButtons = document.querySelectorAll('.complete');
   let count = 0;
@@ -63,7 +70,9 @@ function checkCountAndUpdate(index) {
   }
 }
 
+// Event listener for when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
+  // Event listener for icon container clicks
   iconContainer.forEach((container, index) => {
     let loading1Button = container.children[1];
     container.addEventListener('click', async () => {
@@ -81,9 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
           console.log('got here too');
           completeButton.classList.toggle('show');
           loading1Button.classList.toggle('show');
-
           timeLoadingButton.classList.toggle('show');
-
           checkCountAndUpdate(index);
         });
         await delay(1);
@@ -93,10 +100,8 @@ document.addEventListener('DOMContentLoaded', function () {
         container.style.setProperty('--display', 'none');
         await delay(52);
         loading2Button.classList.toggle('rotate');
-        // timeLoadingButton.classList.toggle('show');
         await delay(103);
         timeLoadingButton.classList.toggle('blur');
-        // loading1Button.classList.toggle('show');}
       } else {
         await delay(1);
         timeLoadingButton.classList.toggle('blur');
@@ -109,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // Event listener for dropdown toggle
   dropDown.addEventListener('click', () => {
     taskList.classList.toggle('open');
     dropdownOpen.classList.toggle('hidden');
@@ -126,18 +132,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     taskList.children[0].classList.toggle('active');
   });
+
+  // Event listener for close button
   close.addEventListener('click', () => {
     planNotice.remove();
   });
+
+  // Event listener for username button
   userNameButton.addEventListener('click', () => {
     let dropdownContainer =
       userNameButton.nextElementSibling.nextElementSibling;
     dropdownContainer.classList.toggle('hidden');
   });
+
+  // Event listener for notification button
   notificationButton.addEventListener('click', () => {
     let alertContainer = userNameButton.nextElementSibling;
     alertContainer.classList.toggle('hidden');
   });
+
+  // Event listeners for task focus and blur
   let tasks = document.querySelectorAll('.expandable');
   let focusedTask = null;
 
@@ -170,29 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// function handleTaskFocus(event) {
-//   var target = event.target;
-//   var task = target.closest('.expandable');
-//   console.log(task);
-
-//   if (task) {
-//     // Toggle the 'more content' based on the focus state
-//     toggleContent(task.querySelectorAll('.more-content'), true);
-//   }
-// }
-
-// function handleTaskBlur(event) {
-//   var target = event.target;
-//   var task = target.closest('.expandable');
-
-//   if (task) {
-//     // Toggle the 'more content' based on the blur state
-//     toggleContent(task.querySelectorall('.more-content'), false);
-//   }
-// }
-
-// Add focus and blur event listeners to each task
-
+// Function to get the first letters of a string
 function getFirstLetters(inputString) {
   // Split the string into an array of words
   let words = inputString.split(/\s+/);
@@ -206,6 +198,5 @@ function getFirstLetters(inputString) {
   return resultString;
 }
 
-// Function to toggle the visibility of additional content
-
+// Set the abbreviation of the username
 userNameAbbr.innerHTML = getFirstLetters(userName.textContent);
