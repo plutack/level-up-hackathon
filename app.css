@@ -553,6 +553,13 @@ input[type='radio'] {
   height: 32px;
 }
 
+.accessibility {
+  display: none;
+}
+.accessibility:focus {
+  display: block;
+}
+
 @media (max-width: 599px) {
   #spotify-logo-dt {
     display: none;
