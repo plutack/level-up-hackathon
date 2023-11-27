@@ -24,12 +24,16 @@ body {
   background-color: #f1f1f1;
 }
 
-body > header {
+#spotify-logo-mb {
+  display: none;
+}
+
+header {
   background-color: #1a1a1a;
 }
 
 nav {
-  padding: 0.75rem 1rem;
+  padding: 12px 16px;
 }
 
 ul {
@@ -38,6 +42,10 @@ ul {
   justify-content: space-between;
   align-items: center;
   height: 32px;
+}
+
+header > nav > ul {
+  gap: 8px;
 }
 main > header {
   display: flex;
@@ -51,6 +59,18 @@ main > header {
 #searchBar * {
   flex: 1;
   height: 32px;
+}
+.inputbox-container {
+  position: relative;
+}
+.inputbox-container::before {
+  content: url(https://crushingit.tech/hackathon-assets/icon-search.svg);
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 8px;
+  width: 20px;
+  height: 20px;
+  transform: translateY(-50%);
 }
 
 nav li:nth-child(3) > ul {
@@ -91,6 +111,7 @@ nav li:nth-child(3) > ul {
 #search {
   width: 100%;
   padding: 8px;
+  padding-inline-start: 32px;
   border-radius: 8px;
   background-color: #322f33;
   border: 1px solid #616161;
@@ -99,10 +120,9 @@ nav li:nth-child(3) > ul {
 #search:hover {
   border-color: #e1e1e1;
 }
-#search:active,
-#search:focus {
-  outline: 0;
-  border-color: #ffffff;
+#search:hover:active,
+#search1:focus {
+  outline: 1px solid #ffffff;
 }
 
 p,
@@ -133,8 +153,10 @@ main {
 main > :first-child {
   margin-block-start: 32px;
 }
-main header {
-  padding: 12px 8px 12px 16px;
+#planNotice {
+  padding: 12px 0px;
+  padding-inline-end: 8px;
+  padding-inline-start: 16px;
   justify-content: space-between;
   align-items: center;
   background-color: #1a1a1a;
@@ -164,6 +186,16 @@ main header {
   height: 100%;
 }
 
+#dropDown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#dropDown > svg {
+  width: 28px;
+  height: 28px;
+}
 .setup {
   display: flex;
   flex-direction: column;
@@ -295,17 +327,30 @@ main header {
 .incomplete {
   height: 24px;
   width: 24px;
-  transition: 0.25s ease-in;
 }
-.loading,
+
+/* .incomplete:hover {
+  display: none;
+} */
+
+.icon-container:hover:active > .loading-1 {
+  fill: #d9d9d9;
+}
+
+.loading-1,
+.loading-2,
+.time-loading,
 .complete {
   display: none;
   height: 24px;
   width: 24px;
-  transition: all 0.5s ease;
 }
 
-.loading.rotate {
+/* incomplete:hover + .loading-1 {
+  display: flex;
+} */
+
+.loading-2.rotate {
   transform: rotate(-90deg);
 }
 
@@ -313,9 +358,20 @@ main header {
   display: none;
 }
 
-.loading.hidden,
-.complete.hidden {
+.loading-1.show,
+.loading-2.show,
+.time-loading.show,
+.complete.show {
   display: flex;
+}
+.time-loading.show {
+  transition: visibility 50ms ease-out;
+}
+.time-loading.blur {
+  visibility: hidden;
+}
+.loading-2.show {
+  transition: transform 50ms ease-out;
 }
 
 .more-content.hidden {
@@ -338,7 +394,31 @@ main header {
   border: none;
 } */
 
-.task:focus {
+#progressContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#progressbarContainer {
+  position: relative;
+  width: 72px;
+  height: 4px;
+  border-radius: 28px;
+  background-color: #e3e3e3;
+}
+#progressbarContainer::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  width: var(--after-width, 0%);
+  height: 4px;
+  border-radius: 28px;
+  background-color: #1a1a1a;
+}
+
+.task.active {
   background-color: #f3f3f3;
   outline: none;
 }
@@ -407,4 +487,94 @@ main header {
   font-weight: 500;
   line-height: 18.2px;
   font-size: 13px;
+}
+
+input[type='radio'] {
+  display: none;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.icon-container:hover > .incomplete {
+  display: none;
+}
+.icon-container:hover > .loading-1 {
+  display: var(--display, flex);
+}
+#close > svg {
+  width: 32px;
+  height: 32px;
+}
+
+@media (max-width: 599px) {
+
+  #spotify-logo-dt {
+    display: none;
+  }
+  #spotify-logo-mb {
+    display: initial;
+  }
+  
+
+  #planNotice {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    border-radius: 0%;
+    gap: 16px;
+    padding-inline-end: 48px;
+  }
+
+  #planSelect > li:first-child {
+    /* position: absolute; */
+    height: auto;
+  }
+  .setup {
+    border-radius: 0%;
+  }
+  .illustration {
+    display: none;
+  }
+
+  #userName > button > span:first-child {
+    display: none;
+  }
+  #userName > button {
+    padding: 2px;
+    background-color: #1a1a1a;
+  }
+
+  #userName {
+    display: flex;
+    justify-content: center;
+  }
+
+  #notiBellContainer {
+    display: flex;
+    gap: 8px;
+  }
+  #notibell {
+    padding: 0;
+    background-color: #1a1a1a;
+  }
+  #notibell > svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  #close {
+    position: absolute;
+    inset-block-start: 6px;
+    inset-inline-end: 6px;
+  }
+
+  #close > svg {
+    width: 36px;
+    height: 36px;
+  }
 }

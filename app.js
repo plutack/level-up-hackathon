@@ -7,34 +7,118 @@ let userNameAbbr = document.getElementById('userNameAbbr');
 let close = document.querySelector('#close');
 let planNotice = document.querySelector('#planNotice');
 let buttons = document.querySelectorAll('button');
+let loading1Buttons = document.querySelectorAll('.loading-1');
 let incompleteButtons = document.querySelectorAll('.incomplete');
+let iconContainer = document.querySelectorAll('.icon-container');
 let completeButtons = document.querySelectorAll('.complete');
-document.addEventListener('DOMContentLoaded', function () {
-  incompleteButtons.forEach((incompleteButton) => {
-    incompleteButton.addEventListener('click', () => {
-      let loadingButton = incompleteButton.nextElementSibling;
-      let completeButton = loadingButton.nextElementSibling;
-      loadingButton.addEventListener('transitionend', () => {
-        loadingButton.classList.toggle('hidden');
-      });
-      loadingButton.classList.toggle('hidden');
-      incompleteButton.classList.toggle('hidden');
-      loadingButton.style.transform = 'rotate(-90deg)'
-      completeButton.classList.toggle('hidden');
+let progress = document.querySelector('#progress');
+let progressbarContainer = document.querySelector('#progressbarContainer');
+function toggleContent(contents, shouldShow) {
+  if (shouldShow) {
+    contents.forEach((content) => {
+      content.classList.remove('hidden');
     });
-  });
+  } else {
+    contents.forEach((content) => {
+      content.classList.add('hidden');
+    });
+  }
+}
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+function checkCountAndUpdate(index) {
+  let completeButtons = document.querySelectorAll('.complete');
+  let count = 0;
   completeButtons.forEach((completeButton) => {
-    completeButton.addEventListener('click', () => {
-      completeButton.classList.toggle('hidden');
-      setTimeout(() => {
-        completeButton.previousElementSibling.previousElementSibling.classList.toggle(
-          'hidden'
-        );
-      }, 500);
+    if (completeButton.classList.contains('show')) {
+      count++;
+    }
+    progress.innerHTML = count;
+  });
+  let taskList = document.querySelector('.task-list');
+  let taskNumber = taskList.children.length;
+  let widthValue = `${(100 * count) / taskNumber}%`;
+  progressbarContainer.style.setProperty('--after-width', widthValue);
+  if (index < taskNumber - 1) {
+    taskList.children[index].classList.toggle('active');
+    toggleContent(
+      taskList.children[index].querySelectorAll('.more-content'),
+      false
+    );
+    taskList.children[index + 1].classList.toggle('active');
+    toggleContent(
+      taskList.children[index + 1].querySelectorAll('.more-content'),
+      true
+    );
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  iconContainer.forEach((container, index) => {
+    let loading1Button = container.children[1];
+    container.addEventListener('click', async () => {
+      let incompleteButton = loading1Button.previousElementSibling;
+      let loading2Button = loading1Button.nextElementSibling;
+      let timeLoadingButton = loading2Button.nextElementSibling;
+      let completeButton = timeLoadingButton.nextElementSibling;
+      if (!completeButton.classList.contains('show')) {
+        loading2Button.addEventListener('transitionend', () => {
+          console.log('got here');
+          timeLoadingButton.classList.toggle('show');
+          loading2Button.classList.toggle('show');
+        });
+        timeLoadingButton.addEventListener('transitionend', () => {
+          console.log('got here too');
+          completeButton.classList.toggle('show');
+          loading1Button.classList.toggle('show');
+
+          timeLoadingButton.classList.toggle('show');
+
+          checkCountAndUpdate(index);
+        });
+        await delay(1);
+        incompleteButton.classList.toggle('hidden');
+        loading2Button.classList.toggle('show');
+        loading1Button.classList.toggle('show');
+        container.style.setProperty('--display', 'none');
+        await delay(52);
+        loading2Button.classList.toggle('rotate');
+        // timeLoadingButton.classList.toggle('show');
+        await delay(103);
+        timeLoadingButton.classList.toggle('blur');
+        // loading1Button.classList.toggle('show');}
+      } else {
+        await delay(1);
+        timeLoadingButton.classList.toggle('blur');
+        loading2Button.classList.toggle('rotate');
+        container.style.removeProperty('--display');
+        completeButton.classList.toggle('show');
+        incompleteButton.classList.toggle('hidden');
+        checkCountAndUpdate(index);
+      }
     });
   });
+  // iconContainer.forEach((container, index) => {
+  //   let completeButton = container.children[4];
+  //   container.addEventListener('click', async () => {
+
+  //   });
+  // });
   dropDown.addEventListener('click', () => {
     taskList.classList.toggle('open');
+    if (taskList.classList.contains('open')) {
+      toggleContent(
+        taskList.children[0].querySelectorAll('.more-content'),
+        true
+      );
+    } else {
+      toggleContent(
+        taskList.children[0].querySelectorAll('.more-content'),
+        false
+      );
+    }
+    taskList.children[0].classList.toggle('active');
   });
   close.addEventListener('click', () => {
     planNotice.remove();
@@ -42,18 +126,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let tasks = document.querySelectorAll('.expandable');
   let focusedTask = null;
-
-  function toggleContent(contents, shouldShow) {
-    if (shouldShow) {
-      contents.forEach((content) => {
-        content.classList.remove('hidden');
-      });
-    } else {
-      contents.forEach((content) => {
-        content.classList.add('hidden');
-      });
-    }
-  }
 
   function handleTaskFocus(event) {
     var target = event.target;
