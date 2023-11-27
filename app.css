@@ -510,14 +510,12 @@ input[type='radio'] {
 }
 
 @media (max-width: 599px) {
-
   #spotify-logo-dt {
     display: none;
   }
   #spotify-logo-mb {
     display: initial;
   }
-  
 
   #planNotice {
     position: relative;
@@ -568,12 +566,19 @@ input[type='radio'] {
   }
 
   #close {
+    display: flex;
     position: absolute;
     inset-block-start: 6px;
     inset-inline-end: 6px;
   }
 
-  #close > svg {
+  #close > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+  }
+  #close svg {
     width: 36px;
     height: 36px;
   }
